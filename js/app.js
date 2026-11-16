@@ -1,5 +1,7 @@
 const GEO={eddm:{vb:"0 0 720 522",bleed:[27,27,666,468],trim:[36,36,648,450],safe:[45,45,630,432]},
            p9x6:{vb:"0 0 720 504",bleed:[27,27,666,450],trim:[36,36,648,432],safe:[45,45,630,414]}};
+const GEO_FLYER={vb:"0 0 630 810",bleed:[1,1,628,808],trim:[9,9,612,792],safe:[27,27,576,756]};
+const SP_FLYER=[["Trim size","8.5 \u00d7 11 in"],["Bleed","0.125 in all sides"],["Safe margin","0.25 in"],["Color","CMYK"],["Export","PDF, fonts embedded"]];
 const SP_EDDM=[["Trim size","9 \u00d7 6.25 in"],["Bleed","0.125 in all sides"],["Safe margin","0.125 in"],["Color","CMYK"],["Export","PDF/X-4"]];
 const SP_96=[["Trim size","9 \u00d7 6 in"],["Bleed","0.125 in all sides"],["Safe margin","0.125 in"],["Color","CMYK"],["Export","PDF/X-4"]];
 const WORKS=[
@@ -9,10 +11,12 @@ const WORKS=[
  {title:"Homes Sold Brand Mailer",cat:"postcard",tag:"Postcard \u00b7 9 \u00d7 6\u2033",geo:"p9x6",specs:SP_96,desc:"Agent brand mailer with a sold-homes wall and a home-value CTA.",preview:"assets/img/work/homes-sold-brand-mailer/preview.jpg",front:"assets/img/work/homes-sold-brand-mailer/front.jpg",back:"assets/img/work/homes-sold-brand-mailer/back.jpg"},
  {title:"Fence Seasonal Promo",cat:"postcard",tag:"EDDM Postcard \u00b7 9 \u00d7 6.25\u2033",geo:"eddm",specs:SP_EDDM,desc:"Seasonal promo mailer for a pet-containment brand.",preview:"assets/img/work/fence-seasonal-promo/preview.jpg",front:"assets/img/work/fence-seasonal-promo/front.jpg",back:"assets/img/work/fence-seasonal-promo/back.jpg"},
  {title:"Dog Food Direct Mail",cat:"postcard",tag:"Postcard \u00b7 9 \u00d7 6\u2033",geo:"p9x6",specs:SP_96,desc:"Direct-mail promo for a dog-food brand.",preview:"assets/img/work/dog-food-direct-mail/preview.jpg",front:"assets/img/work/dog-food-direct-mail/front.jpg",back:"assets/img/work/dog-food-direct-mail/back.jpg"},
- {title:"Just Sold \u00b7 Scotch Plains",cat:"postcard",tag:"EDDM Postcard \u00b7 9 \u00d7 6.25\u2033",geo:"eddm",specs:SP_EDDM,desc:"Just Sold off-market announcement, two sides.",preview:"assets/img/work/just-sold-scotch-plains/preview.jpg",front:"assets/img/work/just-sold-scotch-plains/front.jpg",back:"assets/img/work/just-sold-scotch-plains/back.jpg"}
+ {title:"Just Sold \u00b7 Scotch Plains",cat:"postcard",tag:"EDDM Postcard \u00b7 9 \u00d7 6.25\u2033",geo:"eddm",specs:SP_EDDM,desc:"Just Sold off-market announcement, two sides.",preview:"assets/img/work/just-sold-scotch-plains/preview.jpg",front:"assets/img/work/just-sold-scotch-plains/front.jpg",back:"assets/img/work/just-sold-scotch-plains/back.jpg"},
+ {title:"Design Talk Event Flyer",cat:"flyer",tag:"Flyer \u00b7 8.5 \u00d7 11\u2033",geo:"flyer",specs:SP_FLYER,desc:"Event flyer for a speaker series: date, venue and QR sign-up up top, speaker and partners below.",preview:"assets/img/work/design-talk-event-flyer/preview.jpg",front:"assets/img/work/design-talk-event-flyer/front.jpg"}
 ];
-const CATLABEL={postcard:"Postcards",business:"Business cards",menu:"Menus \u0026 brochures",sign:"Signs"};
-const PER=4;const TABS=[["preview","Preview"],["front","Front"],["back","Back"]];
+GEO.flyer=GEO_FLYER;
+const CATLABEL={postcard:"Postcards",flyer:"Flyers",business:"Business cards",menu:"Menus \u0026 brochures",sign:"Signs"};
+let PER=6;const ALLTABS=[["preview","Preview"],["front","Front"],["back","Back"]];let TABS=ALLTABS;
 let cat="all",page=0,filtered=[],cur=0,tab="preview",guides=true;
 const $=id=>document.getElementById(id);
 function cats(){const s=[];WORKS.forEach(w=>{if(!s.includes(w.cat))s.push(w.cat)});return s}
@@ -31,12 +35,12 @@ function setTab(x){tab=x;paint()}
 function toggleGuides(){guides=$("vg").checked;paint()}
 function cycleTab(d){const i=TABS.findIndex(x=>x[0]===tab);tab=TABS[(i+d+TABS.length)%TABS.length][0];paint()}
 function navWork(d){cur=(cur+d+filtered.length)%filtered.length;tab="preview";paint()}
-function paint(){const w=WORKS[filtered[cur]],sheet=(tab==="front"||tab==="back"),many=filtered.length>1;
+function paint(){const w=WORKS[filtered[cur]];TABS=ALLTABS.filter(t=>w[t[0]]);if(!w[tab])tab="preview";const sheet=(tab==="front"||tab==="back"),many=filtered.length>1;
  $("vtitle").textContent=w.title;$("vtype").textContent=w.tag;
  $("vtabs").innerHTML=TABS.map(([k,l])=>`<button class="vtab" role="tab" aria-selected="${k===tab}" onclick="setTab('${k}')">${l}</button>`).join('');
  let inner="";
  if(tab==="preview")inner=`<div class="vframe free"><img src="${w.preview}" alt="${w.title} preview"></div>`;
- else if(sheet)inner=`<div class="vframe sheet"><img src="${tab==='front'?w.front:w.back}" alt="${w.title} ${tab}">${guides?guidesSVG(w.geo):''}</div>`;
+ else if(sheet){const vb=GEO[w.geo].vb.split(" ");inner=`<div class="vframe sheet" style="--ar:${vb[2]/vb[3]};aspect-ratio:${vb[2]}/${vb[3]}"><img src="${tab==='front'?w.front:w.back}" alt="${w.title} ${tab}">${guides?guidesSVG(w.geo):''}</div>`}
  $("vstageInner").innerHTML=inner;
  $("vtoggle").classList.toggle('off',!sheet);$("vg").checked=guides;
  $("vlegend").style.display=(sheet&&guides)?'flex':'none';
@@ -46,3 +50,23 @@ function paint(){const w=WORKS[filtered[cur]],sheet=(tab==="front"||tab==="back"
 }
 document.addEventListener('keydown',e=>{if($("viewer").hidden)return;if(e.key==="Escape")closeWork();else if(e.key==="ArrowRight")cycleTab(1);else if(e.key==="ArrowLeft")cycleTab(-1)});
 renderFilters();renderGrid();
+
+/* --- navigation pill on every block, bottom dock on phones --- */
+const NAV=[["home","Home",'<path d="M4 11 12 4l8 7"/><path d="M6 10v9h12v-9"/>'],
+ ["about","About me",'<circle cx="12" cy="8" r="3.6"/><path d="M5 20c.8-4 3.6-6 7-6s6.2 2 7 6"/>'],
+ ["work","Work",'<rect x="4" y="7" width="16" height="12" rx="1.5"/><path d="M9 7V5h6v2"/>'],
+ ["services","Services",'<rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/>'],
+ ["contact","Contact",'<rect x="4" y="6" width="16" height="12" rx="1.5"/><path d="m4 8 8 6 8-6"/>']];
+const navHTML=on=>NAV.map(([id,l,d])=>`<a href="#${id}" data-nav="${id}" ${id===on?'aria-current="page"':''} aria-label="${l}" title="${l}"><svg viewBox="0 0 24 24">${d}</svg></a>`).join('');
+document.querySelectorAll('.slide').forEach(s=>s.insertAdjacentHTML('beforeend',`<nav class="pill" aria-label="Sections">${navHTML(s.id)}</nav>`));
+$("dock").innerHTML=navHTML("home");
+if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)$("dock").querySelectorAll('a').forEach(a=>{if(a.dataset.nav===e.target.id)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')})})},{rootMargin:"-45% 0px -45% 0px"});
+ document.querySelectorAll('.slide').forEach(s=>io.observe(s))}
+
+/* --- scale the whole composition to the window: bigger type and photos on large screens, no empty margins --- */
+function fit(){const d=document.documentElement,w=d.clientWidth,h=innerHeight;let z=1;
+ if(w>=1024)z=Math.max(1,Math.min((w-48)/1180,h/770,1.6));
+ d.style.setProperty('--z',z);document.body.style.zoom=z;
+ d.style.setProperty('--pagew',Math.round(Math.min(1640,Math.max(1228,w/z)))+'px')}
+function perPage(){const w=document.documentElement.clientWidth,n=w>=1280?8:w>=561?6:4;if(n!==PER){PER=n;page=0;renderGrid()}}
+fit();perPage();addEventListener('resize',()=>{fit();perPage()});

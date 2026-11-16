@@ -1,4 +1,4 @@
-# Guy O. — Print design portfolio
+# Guy O. Print design portfolio
 
 One-page portfolio for a freelance print designer. Plain HTML, CSS and JavaScript, no framework.
 

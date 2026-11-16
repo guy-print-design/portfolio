@@ -19,7 +19,7 @@ html = html.replace('<link rel="stylesheet" href="css/style.css">', f"<style>\n{
 js = (ROOT / "js" / "app.js").read_text(encoding="utf-8")
 html = html.replace('<script src="js/app.js"></script>', f"<script>\n{js}</script>")
 
-ASSET = re.compile(r'assets/[A-Za-z0-9_\-./]+\.(?:jpe?g|png|webp|svg|gif)')
+ASSET = re.compile(r'(?<![\w/])assets/[A-Za-z0-9_\-./]+\.(?:jpe?g|png|webp|svg|gif)')
 missing = []
 
 def inline(m):
