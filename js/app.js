@@ -70,3 +70,8 @@ function fit(){const d=document.documentElement,w=d.clientWidth,h=innerHeight;le
  d.style.setProperty('--pagew',Math.round(Math.min(1640,Math.max(1228,w/z)))+'px')}
 function perPage(){const w=document.documentElement.clientWidth,n=w>=1280?8:w>=561?6:4;if(n!==PER){PER=n;page=0;renderGrid()}}
 fit();perPage();addEventListener('resize',()=>{fit();perPage()});
+
+/* --- reviews: arrows scroll one card; trackpad and swipe scroll natively --- */
+function rvBy(d){const r=$("rvrow"),c=r.querySelector('.rv');r.scrollBy({left:d*(c.getBoundingClientRect().width/(+getComputedStyle(document.documentElement).getPropertyValue('--z')||1)+16),behavior:'smooth'})}
+function rvState(){const r=$("rvrow"),a=document.querySelectorAll('.rv-arrow');a[0].disabled=r.scrollLeft<4;a[1].disabled=r.scrollLeft>r.scrollWidth-r.clientWidth-4}
+$("rvrow").addEventListener('scroll',rvState,{passive:true});addEventListener('resize',rvState);rvState();

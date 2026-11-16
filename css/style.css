@@ -418,20 +418,30 @@ body{margin:0}
   .vstage{min-height:auto}
 }
 
-/* --- reviews strip (real Upwork feedback) --- */
-.reviews{display:flex;align-items:center;gap:0;height:54px;border-radius:999px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--line);background:rgba(15,49,48,.28)}
-.rv-badge{flex:none;display:flex;align-items:center;gap:10px;height:100%;padding:0 20px 0 22px;font:600 13px/1 var(--head);box-shadow:inset -1px 0 0 var(--line);background:var(--bg);position:relative;z-index:1}
-.rv-badge .dot{width:9px;height:9px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 2px #fff}
-.rv-view{flex:1;min-width:0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 40px,#000 calc(100% - 60px),transparent);mask-image:linear-gradient(90deg,transparent,#000 40px,#000 calc(100% - 60px),transparent)}
-.rv-track{display:flex;width:max-content;animation:rv 48s linear infinite}
-.rv-dup{display:flex}
-.reviews:hover .rv-track,.reviews:focus-within .rv-track{animation-play-state:paused}
-@keyframes rv{to{transform:translateX(-50%)}}
-.rv{display:flex;align-items:center;gap:12px;padding:0 28px;white-space:nowrap;text-decoration:none;font:400 14px/1 var(--head);color:var(--body)}
-.rv .stars{color:var(--blue);font-size:12px;letter-spacing:2px}
-.rv q{color:#fff;quotes:"“" "”"}
-.rv .who{color:var(--muted);font-size:13px}
-.rv .more{font:600 12px/1 var(--head);color:#fff;padding:6px 10px;border-radius:999px;box-shadow:inset 0 0 0 1px rgba(179,179,179,.4);transition:background .15s,box-shadow .15s}
-.rv:hover .more{background:rgba(11,153,255,.18);box-shadow:inset 0 0 0 1px var(--blue)}
-@media (prefers-reduced-motion:reduce){.rv-track{animation:none}.rv-view{overflow-x:auto}}
-@media (max-width:760px){.reviews{height:48px}.rv-badge{padding:0 12px 0 14px;font-size:12px}.rv{padding:0 18px;font-size:13px}}
+/* --- reviews: cards you can scroll by trackpad, swipe or the side arrows (real Upwork feedback) --- */
+.reviews{position:relative;padding:4px 0 2px}
+.rv-head{display:flex;align-items:center;gap:16px;margin:0 60px 14px}
+.rv-head .lbl{flex:1;margin:0}
+.rv-badge{flex:none;display:inline-flex;align-items:center;gap:9px;padding:8px 14px;border-radius:999px;font:600 12.5px/1 var(--head);box-shadow:inset 0 0 0 1px rgba(179,179,179,.45)}
+.rv-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 2px #fff}
+.rv-row{display:flex;gap:16px;margin:0 60px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;border-radius:14px}
+.rv-row::-webkit-scrollbar{display:none}
+.rv{flex:0 0 calc((100% - 32px)/3);margin:0;scroll-snap-align:start;display:flex;flex-direction:column;gap:12px;padding:20px 22px;border-radius:14px;background:rgba(15,49,48,.3);box-shadow:inset 0 0 0 1px var(--line)}
+.rv .stars{color:var(--blue);font-size:13px;letter-spacing:3px}
+.rv blockquote{margin:0;flex:1;font:400 15.5px/1.55 var(--head);color:#eef2f2}
+.rv figcaption{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding-top:12px;border-top:1px solid var(--line);font:400 12.5px/1.4 var(--text);color:var(--muted);font-variant-numeric:lining-nums}
+.rv figcaption b{display:block;font:600 14px/1.3 var(--head);color:#fff}
+.rv figcaption a{flex:none;font:600 12px/1 var(--head);color:#fff;text-decoration:none;padding:8px 11px;border-radius:999px;box-shadow:inset 0 0 0 1px rgba(179,179,179,.4);transition:background .15s,box-shadow .15s}
+.rv figcaption a:hover{background:rgba(11,153,255,.18);box-shadow:inset 0 0 0 1px var(--blue)}
+.rv-arrow{position:absolute;top:calc(50% + 20px);transform:translateY(-50%)}
+.rv-arrow.prev{left:0}.rv-arrow.next{right:0}
+@media (max-width:1023px){.rv{flex-basis:calc((100% - 16px)/2)}}
+@media (max-width:760px){
+  .rv-head{margin:0 4px 12px}
+  .rv-row{margin:0}
+  .rv{flex-basis:86%}
+  .rv-arrow{display:none}
+}
+.page{grid-template-columns:minmax(0,1fr)}
+.reviews{min-width:0}
+.rv-arrow:disabled{opacity:.25}
