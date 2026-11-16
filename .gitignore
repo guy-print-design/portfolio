@@ -1,0 +1,7 @@
+dist/
+.DS_Store
+# client source files and mockup sources stay out of the public repo
+source/
+*.psd
+*.ai
+*.indd
