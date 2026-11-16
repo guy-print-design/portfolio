@@ -14,10 +14,10 @@ OUT = ROOT / "dist" / "portfolio-standalone.html"
 html = (ROOT / "index.html").read_text(encoding="utf-8")
 
 css = (ROOT / "css" / "style.css").read_text(encoding="utf-8")
-html = html.replace('<link rel="stylesheet" href="css/style.css">', f"<style>\n{css}</style>")
+html = re.sub(r'<link rel="stylesheet" href="css/style\.css[^"]*">', lambda m: f"<style>\n{css}</style>", html)
 
 js = (ROOT / "js" / "app.js").read_text(encoding="utf-8")
-html = html.replace('<script src="js/app.js"></script>', f"<script>\n{js}</script>")
+html = re.sub(r'<script src="js/app\.js[^"]*"></script>', lambda m: f"<script>\n{js}</script>", html)
 
 ASSET = re.compile(r'(?<![\w/])assets/[A-Za-z0-9_\-./]+\.(?:jpe?g|png|webp|svg|gif)')
 missing = []
