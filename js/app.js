@@ -71,7 +71,20 @@ function fit(){const d=document.documentElement,w=d.clientWidth,h=innerHeight;le
 function perPage(){const w=document.documentElement.clientWidth,n=w>=1280?8:w>=561?6:4;if(n!==PER){PER=n;page=0;renderGrid()}}
 fit();perPage();addEventListener('resize',()=>{fit();perPage()});
 
-/* --- reviews: arrows scroll one card; trackpad and swipe scroll natively --- */
-function rvBy(d){const r=$("rvrow"),c=r.querySelector('.rv');r.scrollBy({left:d*(c.getBoundingClientRect().width/(+getComputedStyle(document.documentElement).getPropertyValue('--z')||1)+16),behavior:'smooth'})}
-function rvState(){const r=$("rvrow"),a=document.querySelectorAll('.rv-arrow');a[0].disabled=r.scrollLeft<4;a[1].disabled=r.scrollLeft>r.scrollWidth-r.clientWidth-4}
-$("rvrow").addEventListener('scroll',rvState,{passive:true});addEventListener('resize',rvState);rvState();
+/* --- reviews: slow running row; pauses on hover or touch, trackpad and swipe still scroll it --- */
+(function(){const r=$("rvrow"),n=r.children.length;
+ r.insertAdjacentHTML('beforeend',[...r.children].map(c=>c.outerHTML.replace('<figure class="rv"','<figure class="rv" aria-hidden="true"').replace('<a ','<a tabindex="-1" ')).join(''));
+ if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+ let pos=0,last=0,hold=false,until=0;
+ const half=()=>r.children[n].offsetLeft-r.children[0].offsetLeft;
+ const pause=ms=>{until=performance.now()+ms};
+ r.addEventListener('mouseenter',()=>hold=true);r.addEventListener('mouseleave',()=>hold=false);
+ r.addEventListener('focusin',()=>hold=true);r.addEventListener('focusout',()=>hold=false);
+ r.addEventListener('touchstart',()=>pause(6000),{passive:true});r.addEventListener('wheel',()=>pause(2500),{passive:true});
+ function step(t){const dt=Math.min(50,t-last||0);last=t;const h=half();
+  if(Math.abs(r.scrollLeft-pos)>2)pos=r.scrollLeft;
+  if(!hold&&t>until&&!document.hidden){pos+=dt*0.032}
+  if(h>0){if(pos>=h)pos-=h;else if(pos<0)pos+=h}
+  if(Math.abs(r.scrollLeft-pos)>=.5)r.scrollLeft=pos;
+  requestAnimationFrame(step)}
+ requestAnimationFrame(step)})();
