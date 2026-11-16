@@ -417,3 +417,21 @@ body{margin:0}
   .viewer[hidden]{display:none}
   .vstage{min-height:auto}
 }
+
+/* --- reviews strip (real Upwork feedback) --- */
+.reviews{display:flex;align-items:center;gap:0;height:54px;border-radius:999px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--line);background:rgba(15,49,48,.28)}
+.rv-badge{flex:none;display:flex;align-items:center;gap:10px;height:100%;padding:0 20px 0 22px;font:600 13px/1 var(--head);box-shadow:inset -1px 0 0 var(--line);background:var(--bg);position:relative;z-index:1}
+.rv-badge .dot{width:9px;height:9px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 2px #fff}
+.rv-view{flex:1;min-width:0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 40px,#000 calc(100% - 60px),transparent);mask-image:linear-gradient(90deg,transparent,#000 40px,#000 calc(100% - 60px),transparent)}
+.rv-track{display:flex;width:max-content;animation:rv 48s linear infinite}
+.rv-dup{display:flex}
+.reviews:hover .rv-track,.reviews:focus-within .rv-track{animation-play-state:paused}
+@keyframes rv{to{transform:translateX(-50%)}}
+.rv{display:flex;align-items:center;gap:12px;padding:0 28px;white-space:nowrap;text-decoration:none;font:400 14px/1 var(--head);color:var(--body)}
+.rv .stars{color:var(--blue);font-size:12px;letter-spacing:2px}
+.rv q{color:#fff;quotes:"“" "”"}
+.rv .who{color:var(--muted);font-size:13px}
+.rv .more{font:600 12px/1 var(--head);color:#fff;padding:6px 10px;border-radius:999px;box-shadow:inset 0 0 0 1px rgba(179,179,179,.4);transition:background .15s,box-shadow .15s}
+.rv:hover .more{background:rgba(11,153,255,.18);box-shadow:inset 0 0 0 1px var(--blue)}
+@media (prefers-reduced-motion:reduce){.rv-track{animation:none}.rv-view{overflow-x:auto}}
+@media (max-width:760px){.reviews{height:48px}.rv-badge{padding:0 12px 0 14px;font-size:12px}.rv{padding:0 18px;font-size:13px}}
