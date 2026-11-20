@@ -1,6 +1,14 @@
 const GEO={eddm:{vb:"0 0 720 522",bleed:[27,27,666,468],trim:[36,36,648,450],safe:[45,45,630,432]},
            p9x6:{vb:"0 0 720 504",bleed:[27,27,666,450],trim:[36,36,648,432],safe:[45,45,630,414]}};
 const GEO_FLYER={vb:"0 0 630 810",bleed:[1,1,628,808],trim:[9,9,612,792],safe:[27,27,576,756]};
+const GEO_TY={vb:"0 0 792 576",bleed:[27,27,738,522],trim:[36,36,720,504],safe:[45,45,702,486]};
+const GEO_PW={vb:"0 0 682.016 484.016",bleed:[8.51,8.51,665,467],trim:[17.01,17.01,648,450],safe:[26.01,26.01,630,432]};
+const GEO_TN={vb:"0 0 646.016 826.016",bleed:[8.51,8.51,629,809],trim:[17.01,17.01,612,792],safe:[35.01,35.01,576,756]};
+const GEO_HV={vb:"0 0 629.516 875.516",bleed:[8.51,8.51,612.5,858.5],trim:[17.01,17.01,595.5,841.5],safe:[35.01,35.01,559.5,805.5]};
+const SP_TY=[["Trim size","10 \u00d7 7 in flat, folds to 5 \u00d7 7 in"],["Bleed","0.125 in all sides"],["Safe margin","0.125 in"],["Color","CMYK"],["Export","PDF/X-4"]];
+const SP_PW=[["Trim size","9 \u00d7 6.25 in"],["Bleed","0.118 in (3 mm) all sides"],["Safe margin","0.125 in"],["Color","CMYK"],["Export","PDF/X-4"]];
+const SP_TN=[["Trim size","8.5 \u00d7 11 in"],["Bleed","0.118 in (3 mm) all sides"],["Safe margin","0.25 in"],["Color","CMYK"],["Export","PDF/X-4, fonts embedded"]];
+const SP_HV=[["Trim size","A4, 210 \u00d7 297 mm"],["Bleed","3 mm all sides"],["Safe margin","0.25 in"],["Color","CMYK"],["Export","PDF/X-4, fonts embedded"]];
 const SP_FLYER=[["Trim size","8.5 \u00d7 11 in"],["Bleed","0.125 in all sides"],["Safe margin","0.25 in"],["Color","CMYK"],["Export","PDF, fonts embedded"]];
 const SP_EDDM=[["Trim size","9 \u00d7 6.25 in"],["Bleed","0.125 in all sides"],["Safe margin","0.125 in"],["Color","CMYK"],["Export","PDF/X-4"]];
 const SP_96=[["Trim size","9 \u00d7 6 in"],["Bleed","0.125 in all sides"],["Safe margin","0.125 in"],["Color","CMYK"],["Export","PDF/X-4"]];
@@ -12,10 +20,14 @@ const WORKS=[
  {title:"Fence Seasonal Promo",cat:"postcard",tag:"EDDM Postcard \u00b7 9 \u00d7 6.25\u2033",geo:"eddm",specs:SP_EDDM,desc:"Seasonal promo mailer for a pet-containment brand.",preview:"assets/img/work/fence-seasonal-promo/preview.jpg",front:"assets/img/work/fence-seasonal-promo/front.jpg",back:"assets/img/work/fence-seasonal-promo/back.jpg"},
  {title:"Dog Food Direct Mail",cat:"postcard",tag:"Postcard \u00b7 9 \u00d7 6\u2033",geo:"p9x6",specs:SP_96,desc:"Direct-mail promo for a dog-food brand.",preview:"assets/img/work/dog-food-direct-mail/preview.jpg",front:"assets/img/work/dog-food-direct-mail/front.jpg",back:"assets/img/work/dog-food-direct-mail/back.jpg"},
  {title:"Just Sold \u00b7 Scotch Plains",cat:"postcard",tag:"EDDM Postcard \u00b7 9 \u00d7 6.25\u2033",geo:"eddm",specs:SP_EDDM,desc:"Just Sold off-market announcement, two sides.",preview:"assets/img/work/just-sold-scotch-plains/preview.jpg",front:"assets/img/work/just-sold-scotch-plains/front.jpg",back:"assets/img/work/just-sold-scotch-plains/back.jpg"},
- {title:"Design Talk Event Flyer",cat:"flyer",tag:"Flyer \u00b7 8.5 \u00d7 11\u2033",geo:"flyer",specs:SP_FLYER,desc:"Event flyer for a speaker series: date, venue and QR sign-up up top, speaker and partners below.",preview:"assets/img/work/design-talk-event-flyer/preview.jpg",front:"assets/img/work/design-talk-event-flyer/front.jpg"}
+ {title:"Design Talk Event Flyer",cat:"flyer",tag:"Flyer \u00b7 8.5 \u00d7 11\u2033",geo:"flyer",specs:SP_FLYER,desc:"Event flyer for a speaker series: date, venue and QR sign-up up top, speaker and partners below.",preview:"assets/img/work/design-talk-event-flyer/preview.jpg",front:"assets/img/work/design-talk-event-flyer/front.jpg"},
+ {title:"Power Washing Offer",cat:"postcard",tag:"EDDM Postcard \u00b7 9 \u00d7 6.25\u2033",geo:"pw",specs:SP_PW,desc:"Bundle-and-save mailer for a power-washing company, with a review, before/after photos and an EDDM indicia back.",preview:"assets/img/work/national-power-washing/preview.jpg",front:"assets/img/work/national-power-washing/front.jpg",back:"assets/img/work/national-power-washing/back.jpg"},
+ {title:"Thank-You Card",cat:"card",tag:"Folded Card \u00b7 5 \u00d7 7\u2033",geo:"ty",specs:SP_TY,labels:{front:"Outside",back:"Inside"},desc:"Folded thank-you card for a pet-containment dealer, with a Google review QR code and a referral note.",preview:"assets/img/work/fence-thank-you-card/preview.jpg",front:"assets/img/work/fence-thank-you-card/front.jpg",back:"assets/img/work/fence-thank-you-card/back.jpg"},
+ {title:"Cleaning Service Flyer",cat:"flyer",tag:"Flyer \u00b7 8.5 \u00d7 11\u2033",geo:"tn",specs:SP_TN,desc:"Two-sided flyer for a home-cleaning service: bold offer on the front, four services on the back.",preview:"assets/img/work/cleaning-service-flyer/preview.jpg",front:"assets/img/work/cleaning-service-flyer/front.jpg",back:"assets/img/work/cleaning-service-flyer/back.jpg"},
+ {title:"Heating and Cooling Flyer",cat:"flyer",tag:"Flyer \u00b7 A4",geo:"hv",specs:SP_HV,desc:"Single-sided HVAC services flyer with a photo header, service icons and contact bar.",preview:"assets/img/work/hvac-flyer/preview.jpg",front:"assets/img/work/hvac-flyer/front.jpg"}
 ];
-GEO.flyer=GEO_FLYER;
-const CATLABEL={postcard:"Postcards",flyer:"Flyers",business:"Business cards",menu:"Menus \u0026 brochures",sign:"Signs"};
+GEO.flyer=GEO_FLYER;GEO.ty=GEO_TY;GEO.pw=GEO_PW;GEO.tn=GEO_TN;GEO.hv=GEO_HV;
+const CATLABEL={postcard:"Postcards",flyer:"Flyers",card:"Cards",business:"Business cards",menu:"Menus \u0026 brochures",sign:"Signs"};
 let PER=6;const ALLTABS=[["preview","Preview"],["front","Front"],["back","Back"]];let TABS=ALLTABS;
 let cat="all",page=0,filtered=[],cur=0,tab="preview",guides=true;
 const $=id=>document.getElementById(id);
@@ -35,7 +47,7 @@ function setTab(x){tab=x;paint()}
 function toggleGuides(){guides=$("vg").checked;paint()}
 function cycleTab(d){const i=TABS.findIndex(x=>x[0]===tab);tab=TABS[(i+d+TABS.length)%TABS.length][0];paint()}
 function navWork(d){cur=(cur+d+filtered.length)%filtered.length;tab="preview";paint()}
-function paint(){const w=WORKS[filtered[cur]];TABS=ALLTABS.filter(t=>w[t[0]]);if(!w[tab])tab="preview";const sheet=(tab==="front"||tab==="back"),many=filtered.length>1;
+function paint(){const w=WORKS[filtered[cur]];TABS=ALLTABS.filter(t=>w[t[0]]).map(t=>[t[0],(w.labels&&w.labels[t[0]])||t[1]]);if(!w[tab])tab="preview";const sheet=(tab==="front"||tab==="back"),many=filtered.length>1;
  $("vtitle").textContent=w.title;$("vtype").textContent=w.tag;
  $("vtabs").innerHTML=TABS.map(([k,l])=>`<button class="vtab" role="tab" aria-selected="${k===tab}" onclick="setTab('${k}')">${l}</button>`).join('');
  let inner="";
