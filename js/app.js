@@ -5,6 +5,12 @@ const GEO_TY={vb:"0 0 792 576",bleed:[27,27,738,522],trim:[36,36,720,504],safe:[
 const GEO_PW={vb:"0 0 682.016 484.016",bleed:[8.51,8.51,665,467],trim:[17.01,17.01,648,450],safe:[26.01,26.01,630,432]};
 const GEO_TN={vb:"0 0 646.016 826.016",bleed:[8.51,8.51,629,809],trim:[17.01,17.01,612,792],safe:[35.01,35.01,576,756]};
 const GEO_HV={vb:"0 0 629.516 875.516",bleed:[8.51,8.51,612.5,858.5],trim:[17.01,17.01,595.5,841.5],safe:[35.01,35.01,559.5,805.5]};
+const GEO_EC={vb:"0 0 538.02 394.02",bleed:[8.51,8.51,521,377],trim:[17.01,17.01,504,360],safe:[26.01,26.01,486,342]};
+const GEO_EF={vb:"0 0 684 864",bleed:[27,27,630,810],trim:[36,36,612,792],safe:[54,54,576,756]};
+const GEO_MT={vb:"0 0 826.02 646.02",bleed:[8.51,8.51,809,629],trim:[17.01,17.01,792,612],safe:[35.01,35.01,756,576]};
+const SP_EC=[["Trim size","7 \u00d7 5 in"],["Bleed","0.118 in (3 mm) all sides"],["Safe margin","0.125 in"],["Color","CMYK"],["Export","PDF, fonts embedded"]];
+const SP_EF=[["Trim size","8.5 \u00d7 11 in"],["Bleed","0.125 in all sides"],["Safe margin","0.25 in"],["Color","CMYK"],["Export","PDF/X-4, 300 ppi"]];
+const SP_MT=[["Trim size","11 \u00d7 8.5 in flat, tri-fold"],["Bleed","0.118 in (3 mm) all sides"],["Safe margin","0.25 in"],["Color","CMYK"],["Export","PDF, fonts embedded"]];
 const SP_TY=[["Trim size","10 \u00d7 7 in flat, folds to 5 \u00d7 7 in"],["Bleed","0.125 in all sides"],["Safe margin","0.125 in"],["Color","CMYK"],["Export","PDF/X-4"]];
 const SP_PW=[["Trim size","9 \u00d7 6.25 in"],["Bleed","0.118 in (3 mm) all sides"],["Safe margin","0.125 in"],["Color","CMYK"],["Export","PDF/X-4"]];
 const SP_TN=[["Trim size","8.5 \u00d7 11 in"],["Bleed","0.118 in (3 mm) all sides"],["Safe margin","0.25 in"],["Color","CMYK"],["Export","PDF/X-4, fonts embedded"]];
@@ -24,9 +30,12 @@ const WORKS=[
  {title:"Power Washing Offer",cat:"postcard",tag:"EDDM Postcard \u00b7 9 \u00d7 6.25\u2033",geo:"pw",specs:SP_PW,desc:"Bundle-and-save mailer for a power-washing company, with a review, before/after photos and an EDDM indicia back.",preview:"assets/img/work/national-power-washing/preview.jpg",front:"assets/img/work/national-power-washing/front.jpg",back:"assets/img/work/national-power-washing/back.jpg"},
  {title:"Thank-You Card",cat:"card",tag:"Folded Card \u00b7 5 \u00d7 7\u2033",geo:"ty",specs:SP_TY,labels:{front:"Outside",back:"Inside"},desc:"Folded thank-you card for a pet-containment dealer, with a Google review QR code and a referral note.",preview:"assets/img/work/fence-thank-you-card/preview.jpg",front:"assets/img/work/fence-thank-you-card/front.jpg",back:"assets/img/work/fence-thank-you-card/back.jpg"},
  {title:"Cleaning Service Flyer",cat:"flyer",tag:"Flyer \u00b7 8.5 \u00d7 11\u2033",geo:"tn",specs:SP_TN,desc:"Two-sided flyer for a home-cleaning service: bold offer on the front, four services on the back.",preview:"assets/img/work/cleaning-service-flyer/preview.jpg",front:"assets/img/work/cleaning-service-flyer/front.jpg",back:"assets/img/work/cleaning-service-flyer/back.jpg"},
- {title:"Heating and Cooling Flyer",cat:"flyer",tag:"Flyer \u00b7 A4",geo:"hv",specs:SP_HV,desc:"Single-sided HVAC services flyer with a photo header, service icons and contact bar.",preview:"assets/img/work/hvac-flyer/preview.jpg",front:"assets/img/work/hvac-flyer/front.jpg"}
+ {title:"Heating and Cooling Flyer",cat:"flyer",tag:"Flyer \u00b7 A4",geo:"hv",specs:SP_HV,desc:"Single-sided HVAC services flyer with a photo header, service icons and contact bar.",preview:"assets/img/work/hvac-flyer/preview.jpg",front:"assets/img/work/hvac-flyer/front.jpg"},
+ {title:"Hiring Platform Card",cat:"card",tag:"Card \u00b7 7 \u00d7 5\u2033",geo:"ec",specs:SP_EC,desc:"Two-sided promo card for an AI hiring platform: brand front, three benefits and a QR code on the back.",preview:"assets/img/work/hiring-platform-card/preview.jpg",front:"assets/img/work/hiring-platform-card/front.jpg",back:"assets/img/work/hiring-platform-card/back.jpg"},
+ {title:"Hiring Platform Flyer",cat:"flyer",tag:"Flyer \u00b7 8.5 \u00d7 11\u2033",geo:"ef",specs:SP_EF,desc:"One-page flyer for an AI interview platform: headline, feature cards, a three-step process and a demo button.",preview:"assets/img/work/hiring-platform-flyer/preview.jpg",front:"assets/img/work/hiring-platform-flyer/front.jpg"},
+ {title:"Tri-fold Menu",cat:"menu",tag:"Tri-fold Menu \u00b7 11 \u00d7 8.5\u2033",geo:"mt",specs:SP_MT,labels:{front:"Inside"},desc:"Tri-fold menu for a plant-based restaurant: starters, mains, desserts and drinks with photos and an order-online panel.",preview:"assets/img/work/trifold-menu/preview.jpg",front:"assets/img/work/trifold-menu/front.jpg"}
 ];
-GEO.flyer=GEO_FLYER;GEO.ty=GEO_TY;GEO.pw=GEO_PW;GEO.tn=GEO_TN;GEO.hv=GEO_HV;
+GEO.flyer=GEO_FLYER;GEO.ty=GEO_TY;GEO.pw=GEO_PW;GEO.tn=GEO_TN;GEO.hv=GEO_HV;GEO.ec=GEO_EC;GEO.ef=GEO_EF;GEO.mt=GEO_MT;
 const CATLABEL={postcard:"Postcards",flyer:"Flyers",card:"Cards",business:"Business cards",menu:"Menus \u0026 brochures",sign:"Signs"};
 let PER=6;const ALLTABS=[["preview","Preview"],["front","Front"],["back","Back"]];let TABS=ALLTABS;
 let cat="all",page=0,filtered=[],cur=0,tab="preview",guides=true;
