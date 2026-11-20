@@ -8,6 +8,9 @@ const GEO_HV={vb:"0 0 629.516 875.516",bleed:[8.51,8.51,612.5,858.5],trim:[17.01
 const GEO_EC={vb:"0 0 538.02 394.02",bleed:[8.51,8.51,521,377],trim:[17.01,17.01,504,360],safe:[26.01,26.01,486,342]};
 const GEO_EF={vb:"0 0 684 864",bleed:[27,27,630,810],trim:[36,36,612,792],safe:[54,54,576,756]};
 const GEO_MT={vb:"0 0 826.02 646.02",bleed:[8.51,8.51,809,629],trim:[17.01,17.01,792,612],safe:[35.01,35.01,756,576]};
+const GEO_MM={vb:"0 0 1152 864",bleed:[27,27,1098,810],trim:[36,36,1080,792],safe:[54,54,1044,756]};
+const SP_MM=[["Trim size","15 \u00d7 11 in flat, tri-fold"],["Bleed","0.125 in all sides"],["Safe margin","0.25 in"],["Color","CMYK"],["Export","PDF, fonts embedded"]];
+const NOTE_DEFAULT="Real project, adapted for publication. Contact details, QR codes, prices and photos are replaced with placeholders.";
 const SP_EC=[["Trim size","7 \u00d7 5 in"],["Bleed","0.125 in all sides"],["Safe margin","0.125 in"],["Color","CMYK"],["Export","PDF, fonts embedded"]];
 const SP_EF=[["Trim size","8.5 \u00d7 11 in"],["Bleed","0.125 in all sides"],["Safe margin","0.25 in"],["Color","CMYK"],["Export","PDF/X-4, 300 ppi"]];
 const SP_MT=[["Trim size","11 \u00d7 8.5 in flat, tri-fold"],["Bleed","0.125 in all sides"],["Safe margin","0.25 in"],["Color","CMYK"],["Export","PDF, fonts embedded"]];
@@ -33,9 +36,11 @@ const WORKS=[
  {title:"Heating and Cooling Flyer",cat:"flyer",tag:"Flyer \u00b7 A4",geo:"hv",specs:SP_HV,desc:"Single-sided HVAC services flyer with a photo header, service icons and contact bar.",preview:"assets/img/work/hvac-flyer/preview.jpg",front:"assets/img/work/hvac-flyer/front.jpg"},
  {title:"Event Handout Card",cat:"card",tag:"Card \u00b7 7 \u00d7 5\u2033",geo:"ec",specs:SP_EC,desc:"Two-sided handout card: brand side up front, three key benefits and a QR code on the back.",preview:"assets/img/work/evohire-handout-card/preview.jpg",front:"assets/img/work/evohire-handout-card/front.jpg",back:"assets/img/work/evohire-handout-card/back.jpg"},
  {title:"Hiring Platform Flyer",cat:"flyer",tag:"Flyer \u00b7 8.5 \u00d7 11\u2033",geo:"ef",specs:SP_EF,desc:"One-page flyer for an AI interview platform: headline, feature cards, a three-step process and a demo button.",preview:"assets/img/work/hiring-platform-flyer/preview.jpg",front:"assets/img/work/hiring-platform-flyer/front.jpg"},
- {title:"Tri-fold Menu",cat:"menu",tag:"Tri-fold Menu \u00b7 11 \u00d7 8.5\u2033",geo:"mt",specs:SP_MT,labels:{front:"Inside"},desc:"Tri-fold menu for a plant-based restaurant: starters, mains, desserts and drinks with photos and an order-online panel.",preview:"assets/img/work/trifold-menu/preview.jpg",front:"assets/img/work/trifold-menu/front.jpg"}
+ {title:"Tri-fold Menu",cat:"menu",tag:"Tri-fold Menu \u00b7 11 \u00d7 8.5\u2033",geo:"mt",specs:SP_MT,labels:{front:"Inside"},desc:"Tri-fold menu for a plant-based restaurant: starters, mains, desserts and drinks with photos and an order-online panel.",preview:"assets/img/work/trifold-menu/preview.jpg",front:"assets/img/work/trifold-menu/front.jpg"},
+ {title:"Electrician Promo Flyer",cat:"flyer",tag:"Flyer \u00b7 8.5 \u00d7 11\u2033",geo:"ef",specs:SP_FLYER,desc:"Single-sided promo flyer for an electrical contractor: safety headline, four warning signs, a 10% offer and a contact bar with a QR code.",preview:"assets/img/work/noryx-electric-flyer/preview.jpg",front:"assets/img/work/noryx-electric-flyer/front.jpg"},
+ {title:"Pizzeria Tri-fold Menu",cat:"menu",tag:"Tri-fold Menu \u00b7 15 \u00d7 11\u2033",geo:"mm",specs:SP_MM,labels:{front:"Outside",back:"Inside"},note:"Real project, adapted for publication. Contact details, QR codes and prices are replaced with placeholders.",desc:"Two-sided tri-fold menu for a pizzeria: pizza, pasta and entr\u00e9es inside, offer, QR code and contacts on the outside.",preview:"assets/img/work/pizzeria-trifold-menu/preview.jpg",front:"assets/img/work/pizzeria-trifold-menu/front.jpg",back:"assets/img/work/pizzeria-trifold-menu/back.jpg"}
 ];
-GEO.flyer=GEO_FLYER;GEO.ty=GEO_TY;GEO.pw=GEO_PW;GEO.tn=GEO_TN;GEO.hv=GEO_HV;GEO.ec=GEO_EC;GEO.ef=GEO_EF;GEO.mt=GEO_MT;
+GEO.flyer=GEO_FLYER;GEO.ty=GEO_TY;GEO.pw=GEO_PW;GEO.tn=GEO_TN;GEO.hv=GEO_HV;GEO.ec=GEO_EC;GEO.ef=GEO_EF;GEO.mt=GEO_MT;GEO.mm=GEO_MM;
 const CATLABEL={postcard:"Postcards",flyer:"Flyers",card:"Cards",business:"Business cards",menu:"Menus \u0026 brochures",sign:"Signs"};
 let PER=6;const ALLTABS=[["preview","Preview"],["front","Front"],["back","Back"]];let TABS=ALLTABS;
 let cat="all",page=0,filtered=[],cur=0,tab="preview",guides=true;
@@ -66,7 +71,7 @@ function paint(){const w=WORKS[filtered[cur]];TABS=ALLTABS.filter(t=>w[t[0]]).ma
  $("vtoggle").classList.toggle('off',!sheet);$("vg").checked=guides;
  $("vlegend").style.display=(sheet&&guides)?'flex':'none';
  $("vspecs").innerHTML=w.specs.map(([a,b])=>`<div class="specrow">${a}<span>${b}</span></div>`).join('');
- $("vdesc").textContent=w.desc;
+ $("vdesc").textContent=w.desc;$("vnote").textContent=w.note||NOTE_DEFAULT;
  $("vworknav").style.display=many?'flex':'none';
 }
 document.addEventListener('keydown',e=>{if($("viewer").hidden)return;if(e.key==="Escape")closeWork();else if(e.key==="ArrowRight")cycleTab(1);else if(e.key==="ArrowLeft")cycleTab(-1)});
