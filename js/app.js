@@ -23,7 +23,12 @@ const SP_HV=[["Trim size","A4, 210 \u00d7 297 mm"],["Bleed","3 mm all sides"],["
 const SP_FLYER=[["Trim size","8.5 \u00d7 11 in"],["Bleed","0.125 in all sides"],["Safe margin","0.25 in"],["Color","CMYK"],["Export","PDF, fonts embedded"]];
 const SP_EDDM=[["Trim size","9 \u00d7 6.25 in"],["Bleed","0.125 in all sides"],["Safe margin","0.125 in"],["Color","CMYK"],["Export","PDF/X-4"]];
 const SP_96=[["Trim size","9 \u00d7 6 in"],["Bleed","0.125 in all sides"],["Safe margin","0.125 in"],["Color","CMYK"],["Export","PDF/X-4"]];
+const SP_BRAND=[["Format","Brand guidelines book"],["Page size","A4 landscape, 297 \u00d7 210 mm"],["Contents","Logo system, typography, color, usage, product mockups"],["Color","RGB screen + CMYK equivalents"],["Deliverables","Press-ready PDF + source"]];
+const SP_POSTER=[["Format","Advertising poster"],["Media","Digital + print adaptation"],["Color","CMYK / RGB"],["Deliverables","Print-ready PDF + PNG"]];
+const NOTE_PUBLISHED="Real client project, published with permission.";
 const WORKS=[
+ {title:"Virtua Brand Guidelines",cat:"brand",tag:"Brand Guidelines \u00b7 SaaS",digital:true,specs:SP_BRAND,note:NOTE_PUBLISHED,labels:{front:"Contents",back:"About"},desc:"Full brand guidelines for Virtua, a SaaS company: logo system, typography, color palette, usage rules and product mockups across digital and print. Delivered as a press-ready PDF with source files.",preview:"assets/img/work/virtua-brand-guidelines/preview.jpg",front:"assets/img/work/virtua-brand-guidelines/front.jpg",back:"assets/img/work/virtua-brand-guidelines/back.jpg"},
+ {title:"Rosemary Oil Promo Poster",cat:"poster",tag:"Advertising Poster",digital:true,specs:SP_POSTER,note:NOTE_PUBLISHED,desc:"Sale poster for a rosemary essential oil brand: 50% off headline, before-and-after insets and a product shot on a neutral stage. Built in Adobe Photoshop, adapted for social and print.",preview:"assets/img/work/rosemary-oil-poster/preview.jpg"},
  {title:"Power Washing Offer",cat:"postcard",tag:"EDDM Postcard \u00b7 9 \u00d7 6.25\u2033",geo:"pw",specs:SP_PW,desc:"Bundle-and-save mailer for a power-washing company, with a review, before/after photos and an EDDM indicia back.",preview:"assets/img/work/national-power-washing/preview.jpg",front:"assets/img/work/national-power-washing/front.jpg",back:"assets/img/work/national-power-washing/back.jpg"},
  {title:"Cleaning Service Flyer",cat:"flyer",tag:"Flyer \u00b7 8.5 \u00d7 11\u2033",geo:"tn",specs:SP_TN,desc:"Two-sided flyer for a home-cleaning service: bold offer on the front, four services on the back.",preview:"assets/img/work/cleaning-service-flyer/preview.jpg",front:"assets/img/work/cleaning-service-flyer/front.jpg",back:"assets/img/work/cleaning-service-flyer/back.jpg"},
  {title:"Pizzeria Tri-fold Menu",cat:"menu",tag:"Tri-fold Menu \u00b7 15 \u00d7 11\u2033",geo:"mm",specs:SP_MM,labels:{front:"Outside",back:"Inside"},note:"Real project, adapted for publication. Contact details, QR codes and prices are replaced with placeholders.",desc:"Two-sided tri-fold menu for a pizzeria: pizza, pasta and entr\u00e9es inside, offer, QR code and contacts on the outside.",preview:"assets/img/work/pizzeria-trifold-menu/preview.jpg",front:"assets/img/work/pizzeria-trifold-menu/front.jpg",back:"assets/img/work/pizzeria-trifold-menu/back.jpg"},
@@ -45,7 +50,7 @@ const WORKS=[
  {title:"Just Sold \u00b7 Scotch Plains",credit:{name:"MediaLoot",url:"https://medialoot.com/"},cat:"postcard",tag:"EDDM Postcard \u00b7 9 \u00d7 6.25\u2033",geo:"eddm",specs:SP_EDDM,desc:"Just Sold off-market announcement, two sides.",preview:"assets/img/work/just-sold-scotch-plains/preview.jpg",front:"assets/img/work/just-sold-scotch-plains/front.jpg",back:"assets/img/work/just-sold-scotch-plains/back.jpg"}
 ];
 GEO.flyer=GEO_FLYER;GEO.ty=GEO_TY;GEO.pw=GEO_PW;GEO.tn=GEO_TN;GEO.hv=GEO_HV;GEO.ec=GEO_EC;GEO.ef=GEO_EF;GEO.mt=GEO_MT;GEO.mm=GEO_MM;GEO.bc=GEO_BC;
-const CATLABEL={postcard:"Postcards",flyer:"Flyers",card:"Cards",business:"Business cards",menu:"Menus \u0026 brochures",sign:"Signs"};
+const CATLABEL={brand:"Brand",poster:"Posters",postcard:"Postcards",flyer:"Flyers",card:"Cards",business:"Business cards",menu:"Menus \u0026 brochures",sign:"Signs"};
 let PER=6;const ALLTABS=[["preview","Preview"],["front","Front"],["back","Back"]];let TABS=ALLTABS;
 let cat="all",page=0,filtered=[],cur=0,tab="preview",guides=true;
 const $=id=>document.getElementById(id);
@@ -70,10 +75,12 @@ function paint(){const w=WORKS[filtered[cur]];TABS=ALLTABS.filter(t=>w[t[0]]).ma
  $("vtabs").innerHTML=TABS.map(([k,l])=>`<button class="vtab" role="tab" aria-selected="${k===tab}" onclick="setTab('${k}')">${l}</button>`).join('');
  let inner="";
  if(tab==="preview")inner=`<div class="vframe free"><img src="${w.preview}" alt="${w.title} preview"></div>`;
- else if(sheet){const vb=GEO[w.geo].vb.split(" ");inner=`<div class="vframe sheet" style="--ar:${vb[2]/vb[3]};aspect-ratio:${vb[2]}/${vb[3]}"><img src="${tab==='front'?w.front:w.back}" alt="${w.title} ${tab}">${guides?guidesSVG(w.geo):''}</div>`}
+ else if(sheet&&w.geo){const vb=GEO[w.geo].vb.split(" ");inner=`<div class="vframe sheet" style="--ar:${vb[2]/vb[3]};aspect-ratio:${vb[2]}/${vb[3]}"><img src="${tab==='front'?w.front:w.back}" alt="${w.title} ${tab}">${guides?guidesSVG(w.geo):''}</div>`}
+ else if(sheet)inner=`<div class="vframe free"><img src="${tab==='front'?w.front:w.back}" alt="${w.title} ${tab}"></div>`;
  $("vstageInner").innerHTML=inner;
- $("vtoggle").classList.toggle('off',!sheet);$("vg").checked=guides;
- $("vlegend").style.display=(sheet&&guides)?'flex':'none';
+ $("vtoggle").style.display=w.digital?'none':'';
+ $("vtoggle").classList.toggle('off',!(sheet&&w.geo));$("vg").checked=guides;
+ $("vlegend").style.display=(sheet&&guides&&w.geo)?'flex':'none';
  $("vspecs").innerHTML=w.specs.map(([a,b])=>`<div class="specrow">${a}<span>${b}</span></div>`).join('');
  $("vdesc").textContent=w.desc;$("vnote").textContent=w.note||NOTE_DEFAULT;{const c=w.credit,e=$("vcredit");if(c&&tab==="preview"){e.innerHTML='Mockup: <a href="'+c.url+'" target="_blank" rel="noopener">'+c.name+' \u2197</a>';e.hidden=false}else{e.innerHTML="";e.hidden=true}}
  $("vworknav").style.display=many?'flex':'none';
